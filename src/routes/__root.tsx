@@ -58,30 +58,28 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "BizPulse — Modern Operations for Local Business" },
-      { name: "description", content: "BizPulse helps small and medium businesses digitize sales tracking, leads, and team tasks — all in one trustworthy dashboard." },
-      { property: "og:title", content: "BizPulse — Operations Dashboard" },
-      { property: "og:description", content: "Digitize daily operations with sales tracking, lead management, and team planning." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-    ],
-    links: [{ rel: "stylesheet", href: appCss }],
-  }),
-  shellComponent: RootShell,
+  meta: () => [
+    { charSet: "utf-8" },
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
+    { title: "BizPulse — Modern Operations for Local Business" },
+    { name: "description", content: "BizPulse helps small and medium businesses digitize sales tracking, leads, and team tasks — all in one trustworthy dashboard." },
+  ],
+  links: () => [{ rel: "stylesheet", href: appCss }],
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
 });
 
-function RootShell({ children }: { children: React.ReactNode }) {
+function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="dark">
-      <head><HeadContent /></head>
-      <body>{children}<Scripts /></body>
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        {children}
+        <Scripts />
+      </body>
     </html>
   );
 }
@@ -89,13 +87,15 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <AuthProvider>
-          <Outlet />
-          <Toaster richColors position="top-right" />
-        </AuthProvider>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <RootDocument>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
+          <AuthProvider>
+            <Outlet />
+            <Toaster richColors position="top-right" />
+          </AuthProvider>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </RootDocument>
   );
 }
