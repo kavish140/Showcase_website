@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight, BarChart3, Users, ListChecks, ShieldCheck, Zap, Lock,
-  TrendingUp, Building2, CheckCircle2,
+  TrendingUp, Building2, CheckCircle2, Cloud
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -11,7 +11,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "BizPulse — Run Your Business with Clarity" },
-      { name: "description", content: "A trustworthy operations dashboard for local businesses. Track sales, manage leads, and plan team tasks — no setup required." },
+      { name: "description", content: "A trustworthy operations dashboard for local businesses. Track sales, manage leads, and plan team tasks in the cloud." },
     ],
   }),
 });
@@ -49,7 +49,7 @@ function Landing() {
           <div className="mx-auto max-w-3xl text-center">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground">
               <span className="h-1.5 w-1.5 rounded-full bg-success" />
-              Trusted by 2,400+ local businesses
+              SaaS Infrastructure Live
             </div>
             <h1 className="text-4xl font-semibold tracking-tight md:text-6xl">
               Run your business with{" "}
@@ -57,12 +57,12 @@ function Landing() {
             </h1>
             <p className="mt-6 text-lg text-muted-foreground md:text-xl">
               BizPulse is the simple operations dashboard for local shops, agencies, and service teams.
-              Track profit, manage leads, and plan your day — without spreadsheets.
+              Track profit, manage leads, and plan your day — synchronized securely across all your devices.
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
               <Button size="lg" asChild className="h-12 px-6 text-base">
                 <Link to="/app">
-                  Open Demo Dashboard <ArrowRight className="ml-2 h-4 w-4" />
+                  Go to Dashboard <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
               <Button size="lg" variant="outline" asChild className="h-12 px-6 text-base">
@@ -70,34 +70,8 @@ function Landing() {
               </Button>
             </div>
             <p className="mt-4 text-xs text-muted-foreground">
-              No sign-up. No credit card. Your data stays in your browser.
+              Create a free account. Your data is securely hosted in the cloud.
             </p>
-          </div>
-
-          {/* Mock dashboard preview */}
-          <div className="mt-16 rounded-xl border border-border bg-card shadow-2xl shadow-primary/10">
-            <div className="flex items-center gap-2 border-b border-border px-4 py-3">
-              <div className="h-2.5 w-2.5 rounded-full bg-destructive/60" />
-              <div className="h-2.5 w-2.5 rounded-full bg-warning/70" />
-              <div className="h-2.5 w-2.5 rounded-full bg-success/70" />
-              <div className="ml-3 text-xs text-muted-foreground">bizpulse.app/dashboard</div>
-            </div>
-            <div className="grid gap-4 p-6 md:grid-cols-3">
-              {[
-                { label: "Monthly Revenue", value: "$48,210", trend: "+12.4%", icon: TrendingUp },
-                { label: "Active Leads", value: "27", trend: "+5 this week", icon: Users },
-                { label: "Tasks Today", value: "8", trend: "3 high priority", icon: ListChecks },
-              ].map((s) => (
-                <div key={s.label} className="rounded-lg border border-border bg-background p-4">
-                  <div className="flex items-center justify-between text-xs text-muted-foreground">
-                    <span>{s.label}</span>
-                    <s.icon className="h-4 w-4" />
-                  </div>
-                  <div className="mt-2 text-2xl font-semibold">{s.value}</div>
-                  <div className="mt-1 text-xs text-success">{s.trend}</div>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
@@ -127,7 +101,7 @@ function Landing() {
               },
               {
                 icon: ListChecks, title: "Team Task Planner",
-                desc: "Daily tasks with priority levels, saved securely on your device — no account needed.",
+                desc: "Daily tasks with priority levels, securely synchronized to your team's cloud account.",
               },
             ].map((f) => (
               <div key={f.title} className="group rounded-xl border border-border bg-card p-6 transition-colors hover:border-primary/50">
@@ -147,16 +121,16 @@ function Landing() {
         <div className="mx-auto grid max-w-7xl gap-12 px-6 md:grid-cols-2 md:items-center">
           <div>
             <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
-              Built for trust. Designed for clarity.
+              Built for scale. Designed for clarity.
             </h2>
             <p className="mt-4 text-muted-foreground">
-              No cloud accounts, no data leaks, no monthly fees. BizPulse runs entirely in your browser — your business numbers never leave your machine.
+              BizPulse runs on a secure PostgreSQL backend, meaning your data is always safe, backed up, and available from any device you sign in on.
             </p>
             <ul className="mt-6 space-y-3">
               {[
-                { icon: Lock, t: "Private by default", d: "All data stored locally on your computer." },
-                { icon: Zap, t: "Instant updates", d: "Numbers and charts react as you type." },
-                { icon: ShieldCheck, t: "No setup, no risk", d: "Open the demo dashboard and start using it now." },
+                { icon: Lock, t: "Secure by default", d: "Protected by industry standard Row Level Security." },
+                { icon: Zap, t: "Instant updates", d: "Real-time dashboard computations backed by React Query." },
+                { icon: Cloud, t: "Cloud Synced", d: "Access your dashboard from your laptop, tablet, or phone." },
               ].map((i) => (
                 <li key={i.t} className="flex gap-3">
                   <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-success/10 text-success">
@@ -174,7 +148,7 @@ function Landing() {
             <div className="text-sm font-medium text-primary">How it works</div>
             <ol className="mt-4 space-y-4">
               {[
-                "Open the dashboard — no sign-up required.",
+                "Sign up for a secure account.",
                 "Enter your monthly numbers, leads, and tasks.",
                 "Review your profit margin, lead pipeline, and daily plan in one place.",
               ].map((step, i) => (
@@ -185,7 +159,7 @@ function Landing() {
               ))}
             </ol>
             <Button asChild className="mt-6 w-full">
-              <Link to="/app">Open Demo Dashboard <ArrowRight className="ml-2 h-4 w-4" /></Link>
+              <Link to="/app">Access Dashboard <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
           </div>
         </div>
@@ -199,16 +173,11 @@ function Landing() {
             Your business, organized in minutes.
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Join thousands of local operators who replaced spreadsheets with BizPulse.
+            A real-time, cloud-synced dashboard designed to replace messy spreadsheets.
           </p>
           <Button size="lg" asChild className="mt-8 h-12 px-8 text-base">
             <Link to="/app">Open Dashboard <ArrowRight className="ml-2 h-4 w-4" /></Link>
           </Button>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-muted-foreground">
-            <span className="flex items-center gap-1.5"><CheckCircle2 className="h-3.5 w-3.5 text-success" /> Free demo</span>
-            <span className="flex items-center gap-1.5"><CheckCircle2 className="h-3.5 w-3.5 text-success" /> No account</span>
-            <span className="flex items-center gap-1.5"><CheckCircle2 className="h-3.5 w-3.5 text-success" /> Data stays local</span>
-          </div>
         </div>
       </section>
 
@@ -217,11 +186,6 @@ function Landing() {
           <div className="flex items-center gap-2">
             <TrendingUp className="h-4 w-4 text-primary" />
             <span>© 2026 BizPulse</span>
-          </div>
-          <div className="flex gap-6">
-            <a href="#" className="hover:text-foreground">Privacy</a>
-            <a href="#" className="hover:text-foreground">Terms</a>
-            <a href="#" className="hover:text-foreground">Contact</a>
           </div>
         </div>
       </footer>
