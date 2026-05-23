@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/sidebar";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useAuth } from "@/lib/auth";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/app")({
   component: AppLayout,
@@ -89,6 +90,9 @@ function AppLayout() {
               <div className="text-sm font-medium text-muted-foreground">Dashboard</div>
             </div>
             <div className="flex items-center gap-2">
+              <Button asChild variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
+                <a href="https://sitenova.dev">← Back to Sitenova</a>
+              </Button>
               <ThemeToggle />
             </div>
           </header>

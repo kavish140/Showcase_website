@@ -34,6 +34,9 @@ function Landing() {
             <a href="#trust" className="hover:text-foreground transition-colors">Why BizPulse</a>
           </nav>
           <div className="flex items-center gap-2">
+            <Button asChild variant="ghost" className="text-muted-foreground hover:text-foreground">
+              <a href="https://sitenova.dev">← Back to Sitenova</a>
+            </Button>
             <ThemeToggle />
             <Button asChild>
               <Link to="/app">Open Dashboard</Link>
