@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppIndexRouteImport } from './routes/app.index'
@@ -16,6 +17,11 @@ import { Route as AppTasksRouteImport } from './routes/app.tasks'
 import { Route as AppSalesRouteImport } from './routes/app.sales'
 import { Route as AppLeadsRouteImport } from './routes/app.leads'
 
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AppRoute = AppRouteImport.update({
   id: '/app',
   path: '/app',
@@ -50,6 +56,7 @@ const AppLeadsRoute = AppLeadsRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/auth': typeof AuthRoute
   '/app/leads': typeof AppLeadsRoute
   '/app/sales': typeof AppSalesRoute
   '/app/tasks': typeof AppTasksRoute
@@ -57,6 +64,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/app/leads': typeof AppLeadsRoute
   '/app/sales': typeof AppSalesRoute
   '/app/tasks': typeof AppTasksRoute
@@ -66,6 +74,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/auth': typeof AuthRoute
   '/app/leads': typeof AppLeadsRoute
   '/app/sales': typeof AppSalesRoute
   '/app/tasks': typeof AppTasksRoute
@@ -73,13 +82,21 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/app' | '/app/leads' | '/app/sales' | '/app/tasks' | '/app/'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/auth'
+    | '/app/leads'
+    | '/app/sales'
+    | '/app/tasks'
+    | '/app/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/app/leads' | '/app/sales' | '/app/tasks' | '/app'
+  to: '/' | '/auth' | '/app/leads' | '/app/sales' | '/app/tasks' | '/app'
   id:
     | '__root__'
     | '/'
     | '/app'
+    | '/auth'
     | '/app/leads'
     | '/app/sales'
     | '/app/tasks'
@@ -89,10 +106,18 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppRoute: typeof AppRouteWithChildren
+  AuthRoute: typeof AuthRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/app': {
       id: '/app'
       path: '/app'
@@ -157,6 +182,7 @@ const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRoute: AppRouteWithChildren,
+  AuthRoute: AuthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

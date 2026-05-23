@@ -1,11 +1,13 @@
-import { createFileRoute, Link, Outlet, useRouterState } from "@tanstack/react-router";
-import { BarChart3, Users, ListChecks, TrendingUp, ArrowLeft, LayoutDashboard } from "lucide-react";
+import { createFileRoute, Link, Outlet, useRouterState, useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
+import { BarChart3, Users, ListChecks, TrendingUp, ArrowLeft, LayoutDashboard, LogOut } from "lucide-react";
 import {
   Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel,
   SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarTrigger,
   SidebarHeader, SidebarFooter,
 } from "@/components/ui/sidebar";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { useAuth } from "@/lib/auth";
 
 export const Route = createFileRoute("/app")({
   component: AppLayout,
@@ -21,7 +23,18 @@ const items = [
 
 function AppLayout() {
   const path = useRouterState({ select: (s) => s.location.pathname });
+  const navigate = useNavigate();
+  const { session, loading, signOut } = useAuth();
+
+  useEffect(() => {
+    if (!loading && !session) {
+      navigate({ to: "/auth" });
+    }
+  }, [loading, session, navigate]);
+
   const active = (url: string, exact?: boolean) => (exact ? path === url : path === url || path.startsWith(url + "/"));
+
+  if (loading || !session) return <div className="min-h-screen bg-background" />;
 
   return (
     <SidebarProvider>
@@ -60,11 +73,9 @@ function AppLayout() {
           <SidebarFooter className="border-t border-sidebar-border">
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild tooltip="Back to site">
-                  <Link to="/" className="flex items-center gap-2 text-muted-foreground">
-                    <ArrowLeft className="h-4 w-4" />
-                    <span>Back to site</span>
-                  </Link>
+                <SidebarMenuButton onClick={signOut} tooltip="Sign out">
+                  <LogOut className="h-4 w-4 text-muted-foreground" />
+                  <span className="text-muted-foreground">Sign out</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
