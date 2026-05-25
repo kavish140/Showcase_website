@@ -10,8 +10,7 @@ import {
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/lib/theme";
 import { AuthProvider } from "@/lib/auth";
-
-
+import { ShowcaseDisclaimer } from "@/components/ShowcaseDisclaimer";
 
 function NotFoundComponent() {
   return (
@@ -73,6 +72,7 @@ function RootComponent() {
         <AuthProvider>
           <Outlet />
           <Toaster richColors position="top-right" />
+          <ShowcaseDisclaimer />
         </AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>
