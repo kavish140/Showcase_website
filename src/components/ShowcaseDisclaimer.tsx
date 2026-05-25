@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { AlertTriangle } from "lucide-react";
 import {
   AlertDialog,
@@ -11,18 +11,9 @@ import {
 } from "@/components/ui/alert-dialog";
 
 export function ShowcaseDisclaimer() {
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    // Check if user has already dismissed the popup
-    const hasAgreed = localStorage.getItem("sitenova-showcase-disclaimer");
-    if (!hasAgreed) {
-      setOpen(true);
-    }
-  }, []);
+  const [open, setOpen] = useState(true);
 
   const handleAgree = () => {
-    localStorage.setItem("sitenova-showcase-disclaimer", "true");
     setOpen(false);
   };
 
